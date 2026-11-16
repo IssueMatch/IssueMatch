@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/issuematch}
+    username: ${DB_USERNAME:issuematch}
+    password: ${DB_PASSWORD:issuematch}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate   # the schema is managed by Flyway, never by Hibernate
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+recommender:
+  base-url: ${RECOMMENDER_URL:http://localhost:8000}docker run -d --name issuematch-db -e POSTGRES_DB=issuematch -e POSTGRES_USER=issuematch -e POSTGRES_PASSWORD=issuematch -p 5432:5432 postgres:16
